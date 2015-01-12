@@ -9,7 +9,7 @@ module Crunchbase
     RESOURCE_LIST = 'funding_rounds'
 
     attr_reader :type_name, :name, :post_money_valuation_currency_code, :permalink, :funding_type, 
-                :money_raised_usd, :announced_on_trust_code, :money_raised, 
+                :money_raised_usd, :announced_on_trust_code, :money_raised, :series,
                 :money_raised_currency_code, :announced_on, :canonical_currency_code,
                 :created_at, :updated_at
 
@@ -30,6 +30,7 @@ module Crunchbase
       @announced_on_trust_code    = properties['announced_on_trust_code']
       @canonical_currency_code    = properties['canonical_currency_code']
       @money_raised               = properties['money_raised']
+      @series                     = properties['series']
       @created_at                 = Time.at(properties['created_at']).utc
       @updated_at                 = Time.at(properties['updated_at']).utc
       @money_raised_currency_code           = properties['money_raised_currency_code']
