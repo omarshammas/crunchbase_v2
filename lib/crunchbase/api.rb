@@ -18,9 +18,9 @@ module Crunchbase
     @timeout_limit  = 60
     @redirect_limit = 2
     @version        = '2'
-    @base_url       = 'http://api.crunchbase.com'
-    @site_url       = "http://www.crunchbase.com"
-    @image_url      = "http://images.crunchbase.com/"
+    @base_url       = 'https://api.crunchbase.com'
+    @site_url       = "https://www.crunchbase.com"
+    @image_url      = "https://images.crunchbase.com/"
     @debug          = false
 
     # Must be overridden in subclasses
@@ -139,7 +139,9 @@ module Crunchbase
         puts "*"*length
       end
 
-      response = Net::HTTP.start(url.host, url.port) { |http| http.get(url.request_uri) }
+      response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
+        http.get(url.request_uri)
+      end
       case response
         when Net::HTTPSuccess, Net::HTTPNotFound
           response.body
