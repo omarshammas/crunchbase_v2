@@ -23,3 +23,6 @@ mkmf.log
 
 *.swp
 spec/apikey.yml
+
+.ruby-gemset
+.ruby-version

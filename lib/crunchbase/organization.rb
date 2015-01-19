@@ -16,13 +16,13 @@ module Crunchbase
                 :closed_on_year, :founded_on_day, :founded_on_month, :founded_on_year, 
                 :role_investor, :founded_on_trust_code, :phone_number
 
-    attr_reader :past_teams, :sub_organizations, :current_teams, :acquisitions, :competitors, 
+    attr_reader :past_teams, :sub_organizations, :current_teams, :acquisitions, :acquired_by, :competitors, 
                 :offices, :headquarters, :funding_rounds, :categories, :customers, :investments, 
                 :founders, :ipos, :products, :primary_images, :images, :websites, :new_items, 
                 :board_members_and_advisors
 
     attr_reader :past_teams_total_items, :sub_organizations_total_items, :current_teams_total_items, 
-                :acquisitions_total_items, :competitors_total_items, :offices_total_items, 
+                :acquisitions_total_items, :acquired_by_total_items, :competitors_total_items, :offices_total_items, 
                 :headquarters_total_items, :funding_rounds_total_items, :categories_total_items, 
                 :customers_total_items, :investments_total_items, :founders_total_items, 
                 :ipos_total_items, :products_total_items, :primary_images_total_items, 
@@ -69,6 +69,7 @@ module Crunchbase
       @sub_organizations_list = relationships['sub_organizations']
       @current_teams_list     = relationships['current_team']
       @acquisitions_list      = relationships['acquisitions']
+      @acquired_by_list       = relationships['acquired_by']
       @competitors_list       = relationships['competitors']
       @offices_list           = relationships['offices']
       @headquarters_list      = relationships['headquarters']
@@ -118,6 +119,10 @@ module Crunchbase
     # Acquisition
     def acquisitions
       @acquisitions ||= Relationship.array_from_list(@acquisitions_list)
+    end
+
+    def acquired_by
+      @acquired_by ||= Relationship.array_from_list(@acquired_by_list)
     end
 
     # Product
@@ -195,6 +200,10 @@ module Crunchbase
 
     def acquisitions_total_items
       @acquisitions_total_items ||= Acquisition.total_items_from_list(@acquisitions_list)
+    end
+
+    def acquired_by_total_items
+      @acquired_by_total_items ||= AcquiredBy.total_items_from_list(@acquired_by_list)
     end
 
     def competitors_total_items
